@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>OG Image Generator — Dr. Hariprasad Narayanan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+
+  .card {
+    width: 1200px;
+    height: 630px;
+    background: #07090F;
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    overflow: hidden;
+    font-family: 'TeX Gyre Heros', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  /* Subtle grid pattern overlay */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,151,42,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,151,42,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* Radial glow — left behind photo */
+  .glow-left {
+    position: absolute;
+    left: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(43,207,195,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* Radial glow — right */
+  .glow-right {
+    position: absolute;
+    right: -60px;
+    top: 20%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(200,151,42,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Vertical divider line */
+  .divider-v {
+    position: absolute;
+    left: 380px;
+    top: 60px;
+    bottom: 60px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(200,151,42,0.3) 30%, rgba(200,151,42,0.3) 70%, transparent);
+  }
+
+  /* ── LEFT PANEL — photo ── */
+  .left {
+    width: 380px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 50px 40px;
+  }
+
+  .photo-frame {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 2px solid rgba(200,151,42,0.4);
+    box-shadow:
+      0 0 0 8px rgba(200,151,42,0.05),
+      0 0 0 16px rgba(200,151,42,0.03),
+      0 30px 80px rgba(0,0,0,0.6);
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  /* Fallback initials if image not loaded */
+  .photo-initials {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0C1020, #1A2236);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 5rem;
+    font-weight: 700;
+    color: rgba(200,151,42,0.6);
+    letter-spacing: -0.02em;
+  }
+
+  /* ── RIGHT PANEL — text ── */
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 70px 60px 55px;
+    position: relative;
+  }
+
+  .eyebrow {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #2BCFC3;
+    margin-bottom: 1.1rem;
+  }
+
+  .name {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #EDE8DC;
+    margin-bottom: 0.5rem;
+  }
+
+  .name .honorific {
+    font-weight: 300;
+    font-style: italic;
+    color: #B8B0A0;
+    font-size: 2.2rem;
+  }
+
+  .credential {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: #6E6760;
+    margin-bottom: 1.8rem;
+  }
+
+  .tagline {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-style: italic;
+    color: #C8972A;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    max-width: 520px;
+  }
+
+  /* Service pills */
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.2rem;
+  }
+
+  .pill {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid rgba(200,151,42,0.25);
+    border-radius: 2px;
+    color: #B8B0A0;
+    background: rgba(200,151,42,0.04);
+  }
+
+  .pill.highlight {
+    border-color: rgba(43,207,195,0.35);
+    color: #2BCFC3;
+    background: rgba(43,207,195,0.04);
+  }
+
+  /* Bottom bar */
+  .bottom-bar {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .url {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: #4A4240;
+  }
+
+  .dot-sep {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(200,151,42,0.3);
+  }
+
+  .location {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: #4A4240;
+  }
+
+  /* Gold accent bar — left edge of right panel */
+  .accent-bar {
+    position: absolute;
+    left: 0;
+    top: 80px;
+    bottom: 80px;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, #C8972A 40%, #C8972A 60%, transparent);
+    opacity: 0.4;
+  }
+
+  /* Top strip */
+  .top-strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #C8972A 30%, #2BCFC3 70%, transparent);
+    opacity: 0.5;
+  }
+
+  /* Instructions panel — shown outside the card */
+  .instructions {
+    width: 1200px;
+    background: #111;
+    color: #888;
+    font-family: monospace;
+    font-size: 13px;
+    padding: 16px 24px;
+    border-top: 1px solid #222;
+    line-height: 1.7;
+  }
+  .instructions strong { color: #E2B45A; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     OG IMAGE CARD — 1200 × 630 px
+     
+     HOW TO SAVE AS og-image.png:
+     1. Open this file in Chrome
+     2. Set zoom to exactly 100% (Ctrl+0 / Cmd+0)
+     3. Open DevTools → press Ctrl+Shift+P
+     4. Type "screenshot" → select "Capture full size screenshot"
+     5. Save the downloaded PNG as:
+        assets/images/og-image.png
+     
+     Then upload to your GitHub repo.
+══════════════════════════════════════════════ -->
+
+<div class="card">
+  <div class="top-strip"></div>
+  <div class="glow-left"></div>
+  <div class="glow-right"></div>
+  <div class="divider-v"></div>
+
+  <!-- LEFT: Profile photo -->
+  <div class="left">
+    <div class="photo-frame">
+      <!--
+        IMPORTANT: Replace the src below with the correct relative path
+        when opening this file from your project folder.
+        If you open it from the repo root, use: assets/images/hariprasad.jpeg
+      -->
+      <img
+        src="assets/images/hariprasad.jpeg"
+        alt="Dr. Hariprasad Narayanan"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      >
+      <div class="photo-initials" style="display:none">HN</div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Name + tagline + services -->
+  <div class="right">
+    <div class="accent-bar"></div>
+
+    <div class="eyebrow">Academic Digital Services · Bengaluru, India</div>
+
+    <div class="name">
+      <span class="honorific">Dr. </span>Hariprasad<br>Narayanan
+    </div>
+
+    <div class="credential">PhD · IIT Madras / CUSAT &nbsp;·&nbsp; Independent Researcher</div>
+
+    <div class="tagline">Domain-informed academic services —<br>built from the inside out.</div>
+
+    <div class="pills">
+      <span class="pill highlight">Academic Websites</span>
+      <span class="pill highlight">LaTeX Typesetting</span>
+      <span class="pill">Conference Design</span>
+      <span class="pill">Science Communication</span>
+      <span class="pill">Visual &amp; Print</span>
+      <span class="pill">Educational Content</span>
+    </div>
+
+    <div class="bottom-bar">
+      <span class="url">hariprasadnarayanan.github.io</span>
+      <span class="dot-sep"></span>
+      <span class="location">Bengaluru · Karnataka · India</span>
+    </div>
+  </div>
+</div>
+
+<div class="instructions">
+  <strong>HOW TO EXPORT THIS AS og-image.png</strong><br>
+  1. Open this file in <strong>Google Chrome</strong> (file://… or via Live Server in VS Code)<br>
+  2. Make sure browser zoom is exactly <strong>100%</strong> — press <strong>Ctrl+0</strong> (Windows/Linux) or <strong>Cmd+0</strong> (Mac)<br>
+  3. Open DevTools: <strong>F12</strong> or right-click → Inspect<br>
+  4. Press <strong>Ctrl+Shift+P</strong> (or Cmd+Shift+P on Mac) to open the Command Palette<br>
+  5. Type <strong>screenshot</strong> and select <strong>"Capture full size screenshot"</strong><br>
+  6. Chrome downloads a PNG — <strong>rename it to og-image.png</strong><br>
+  7. Place it at: <strong>assets/images/og-image.png</strong> in your GitHub repo<br>
+  8. Commit and push — the OG image will be live at:<br>
+  &nbsp;&nbsp;&nbsp;<strong>https://hariprasadnarayanan.github.io/assets/images/og-image.png</strong>
+</div>
+
+</body>
+</html>
