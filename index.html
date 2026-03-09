@@ -336,6 +336,18 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 /* ========== CC LICENSE BADGE ========== */
 .cc-badge { display: inline-flex; align-items: center; gap: .4rem; font-family: var(--font-mono); font-size: .62rem; color: var(--text-3); border: 1px solid var(--border-dim); border-radius: 3px; padding: .2rem .6rem; }
 .cc-badge:hover { border-color: var(--border); color: var(--text-2); }
+
+/* ========== PAGE ROUTER ========== */
+/* !important needed to beat ID-selector rules like #hero { display: flex } */
+.page-section { display: none !important; }
+.page-section.active { display: block !important; }
+/* Hero uses flex layout — preserve it */
+#hero.page-section.active { display: flex !important; flex-direction: column; }
+/* Scroll indicator only meaningful on hero */
+.scroll-indicator { display: none; }
+#hero.page-section.active .scroll-indicator { display: flex; }
+/* Active nav link highlight */
+#nav .nav-links a.nav-active { color: var(--gold-light); }
 </style>
 
 <!-- ========== SEO: STRUCTURED DATA (JSON-LD) ========== -->
@@ -664,18 +676,18 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#hero" class="nav-logo" style="text-decoration:none;">Hariprasad <span>Narayanan</span></a>
+  <a href="#" onclick="showPage('hero'); return false;" class="nav-logo" style="text-decoration:none;">Hariprasad <span>Narayanan</span></a>
   <ul class="nav-links">
-    <li><a href="#hero">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#editorial">Editorial</a></li>
-    <li><a href="#research">Research</a></li>
-    <li><a href="#publications">Publications</a></li>
-    <li><a href="#conferences">Conferences</a></li>
+    <li><a href="#" onclick="showPage('hero'); return false;">Home</a></li>
+    <li><a href="#" onclick="showPage('about'); return false;">About</a></li>
+    <li><a href="#" onclick="showPage('services'); return false;">Services</a></li>
+    <li><a href="#" onclick="showPage('portfolio'); return false;">Portfolio</a></li>
+    <li><a href="#" onclick="showPage('editorial'); return false;">Editorial</a></li>
+    <li><a href="#" onclick="showPage('research'); return false;">Research</a></li>
+    <li><a href="#" onclick="showPage('publications'); return false;">Publications</a></li>
+    <li><a href="#" onclick="showPage('conferences'); return false;">Conferences</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Engage</a>
+  <a href="#" onclick="showPage('contact'); return false;" class="nav-cta">Engage</a>
   <div class="hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
   </div>
@@ -683,20 +695,20 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 
 <!-- Mobile Menu -->
 <div class="nav-mobile-menu" id="mobileMenu">
-  <a href="#hero" onclick="closeMobile()">Home</a>
-  <a href="#about" onclick="closeMobile()">About</a>
-  <a href="#services" onclick="closeMobile()">Services</a>
-  <a href="#portfolio" onclick="closeMobile()">Portfolio</a>
-  <a href="#editorial" onclick="closeMobile()">Editorial</a>
-  <a href="#research" onclick="closeMobile()">Research</a>
-  <a href="#publications" onclick="closeMobile()">Publications</a>
-  <a href="#conferences" onclick="closeMobile()">Conferences</a>
-  <a href="#training" onclick="closeMobile()">Training</a>
-  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <a href="#" onclick="showPage('hero'); closeMobile(); return false;">Home</a>
+  <a href="#" onclick="showPage('about'); closeMobile(); return false;">About</a>
+  <a href="#" onclick="showPage('services'); closeMobile(); return false;">Services</a>
+  <a href="#" onclick="showPage('portfolio'); closeMobile(); return false;">Portfolio</a>
+  <a href="#" onclick="showPage('editorial'); closeMobile(); return false;">Editorial</a>
+  <a href="#" onclick="showPage('research'); closeMobile(); return false;">Research</a>
+  <a href="#" onclick="showPage('publications'); closeMobile(); return false;">Publications</a>
+  <a href="#" onclick="showPage('conferences'); closeMobile(); return false;">Conferences</a>
+  <a href="#" onclick="showPage('training'); closeMobile(); return false;">Training</a>
+  <a href="#" onclick="showPage('contact'); closeMobile(); return false;">Contact</a>
 </div>
 
 <!-- HERO -->
-<section id="hero">
+<section id="hero" class="page-section active">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-grain"></div>
   <div class="hero-gradient"></div>
@@ -715,9 +727,9 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
           <span class="hero-pill">Academic Communication</span>
         </div>
         <div class="hero-actions">
-          <a href="#research" class="btn-primary">Research Portfolio</a>
-          <a href="#services" class="btn-outline">Academic Services</a>
-          <a href="#publications" class="btn-outline">Publications</a>
+          <a href="#" onclick="showPage('research'); return false;" class="btn-primary">Research Portfolio</a>
+          <a href="#" onclick="showPage('services'); return false;" class="btn-outline">Academic Services</a>
+          <a href="#" onclick="showPage('publications'); return false;" class="btn-outline">Publications</a>
         </div>
       </div>
       <div class="hero-photo-col">
@@ -744,7 +756,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 </section>
 
 <!-- ABOUT -->
-<section id="about">
+<section id="about" class="page-section">
   <div class="container">
     <div class="about-grid">
       <div class="about-photo-wrap animate-on-scroll">
@@ -822,7 +834,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 </section>
 
 <!-- PHILOSOPHY -->
-<section id="philosophy">
+<section id="philosophy" class="page-section">
   <div class="container">
     <div class="animate-on-scroll" style="max-width:820px">
       <div class="section-label">Design Philosophy</div>
@@ -833,7 +845,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 </section>
 
 <!-- SERVICES -->
-<section id="services">
+<section id="services" class="page-section">
   <div class="container">
     <div class="services-intro animate-on-scroll">
       <div class="section-label">Academic Digital Services</div>
@@ -864,7 +876,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
             <li>Filterable publications and research output sections</li>
             <li>Client review rounds as agreed</li>
           </ul>
-          <a href="#contact" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Request a Quote</a>
+          <a href="#" onclick="showPage('contact'); return false;" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Request a Quote</a>
         </div>
         <div>
           <div class="pricing-card animate-on-scroll">
@@ -895,7 +907,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
             <li>LaTeX for publication-grade PDF output</li>
             <li>HTML/CSS/JS for visually rich annual reports</li>
           </ul>
-          <a href="#contact" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Request a Quote</a>
+          <a href="#" onclick="showPage('contact'); return false;" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Request a Quote</a>
         </div>
         <div>
           <div class="pricing-card animate-on-scroll">
@@ -925,7 +937,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
             <li>Programme booklet and abstract book</li>
             <li>Orientation programme design for new students</li>
           </ul>
-          <a href="#contact" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Request a Quote</a>
+          <a href="#" onclick="showPage('contact'); return false;" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Request a Quote</a>
         </div>
         <div>
           <div class="pricing-card animate-on-scroll">
@@ -952,7 +964,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 </section>
 
 <!-- PORTFOLIO -->
-<section id="portfolio" style="background:var(--navy)!important">
+<section id="portfolio" class="page-section" style="background:var(--navy)!important">
   <div class="container">
     <div class="animate-on-scroll">
       <div class="section-label">Selected Work</div>
@@ -1086,7 +1098,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 </section>
 
 <!-- EDITORIAL -->
-<section id="editorial">
+<section id="editorial" class="page-section">
   <div class="container">
     <div class="animate-on-scroll">
       <div class="section-label">Editorial &amp; Research Communication</div>
@@ -1104,7 +1116,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 </section>
 
 <!-- RESEARCH -->
-<section id="research">
+<section id="research" class="page-section">
   <div class="container">
     <div class="research-header animate-on-scroll">
       <div>
@@ -1174,7 +1186,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 </section>
 
 <!-- PUBLICATIONS -->
-<section id="publications">
+<section id="publications" class="page-section">
   <div class="container">
     <div class="animate-on-scroll">
       <div class="section-label">Scholarly Output</div>
@@ -1264,7 +1276,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 </section>
 
 <!-- CONFERENCES -->
-<section id="conferences" style="background:var(--navy-1)!important">
+<section id="conferences" class="page-section" style="background:var(--navy-1)!important">
   <div class="container">
     <div class="animate-on-scroll">
       <div class="section-label">Conference Presentations</div>
@@ -1360,7 +1372,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 </section>
 
 <!-- TRAINING & SKILLS -->
-<section id="training" style="background:var(--navy)!important">
+<section id="training" class="page-section" style="background:var(--navy)!important">
   <div class="container">
     <div class="animate-on-scroll">
       <div class="section-label">Professional Development</div>
@@ -1436,7 +1448,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 
 
 <!-- CONTACT -->
-<section id="contact">
+<section id="contact" class="page-section">
   <div class="container">
     <div class="contact-grid">
       <div class="contact-info animate-on-scroll">
@@ -1513,6 +1525,49 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 
 <!-- ========== SCRIPTS ========== -->
 <script>
+/* ===== PAGE ROUTER ===== */
+function showPage(id) {
+  // Hide all sections
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+
+  // Show target section
+  const target = document.getElementById(id);
+  if (!target) return;
+  target.classList.add('active');
+
+  // Scroll to top of page
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Update URL hash for deep-linking and bookmarking
+  history.pushState(null, '', id === 'hero' ? window.location.pathname : '#' + id);
+
+  // Highlight the matching nav link
+  document.querySelectorAll('#nav .nav-links a').forEach(a => {
+    const fn = a.getAttribute('onclick') || '';
+    a.classList.toggle('nav-active', fn.includes("'" + id + "'"));
+  });
+
+  // Trigger animate-on-scroll for newly visible elements
+  // (IntersectionObserver won't fire for elements that were display:none on load)
+  setTimeout(() => {
+    target.querySelectorAll('.animate-on-scroll, .pub-item').forEach(el => {
+      el.classList.add('visible');
+    });
+  }, 80);
+
+  // Close mobile menu if open
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// Handle direct URL access with hash (e.g. yoursite.com/#services)
+(function() {
+  const hash = window.location.hash.replace('#', '');
+  if (hash && document.getElementById(hash)) {
+    showPage(hash);
+  }
+  // If no hash, hero is already active by default (class="page-section active" in HTML)
+})();
+
 /* NAV scroll */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
