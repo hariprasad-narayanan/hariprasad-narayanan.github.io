@@ -245,9 +245,9 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-.animate-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
-@media (max-width: 900px) { .animate-on-scroll { opacity: 1; transform: none; } }
+.animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
 .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+@media (max-width: 900px) { .animate-on-scroll { opacity: 1 !important; transform: none !important; } }
 .nav-mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(7,9,15,.97); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
 .nav-mobile-menu.open { display: flex; }
 .nav-mobile-menu a { font-family: var(--font-display); font-size: 2rem; color: var(--text); }
@@ -309,7 +309,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 .portfolio-card-tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-bottom: 1.2rem; }
 .portfolio-card-link { font-family: var(--font-mono); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-light); display: inline-flex; align-items: center; gap: .3rem; margin-top: auto; }
 .portfolio-card-link:hover { color: var(--teal); }
-@media (max-width: 900px) { .portfolio-grid { grid-template-columns: 1fr; } .portfolio-card--wide { flex-direction: column; } .portfolio-card-preview--wide { width: 100%; } }
+@media (max-width: 900px) { .portfolio-grid { grid-template-columns: 1fr; gap: 1.2rem; } .portfolio-card--wide { flex-direction: column; } .portfolio-card-preview--wide { width: 100%; } .portfolio-card-preview { min-height: 160px; } .portfolio-card-body { padding: 1.2rem; } }
 .hero-two-col { display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center; width: 100%; }
 .hero-text-col { display: flex; flex-direction: column; }
 .hero-photo-col { display: flex; justify-content: center; align-items: flex-end; }
@@ -1532,7 +1532,7 @@ function switchTab(id) {
 /* Intersection Observer */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
 document.querySelectorAll('.animate-on-scroll, .pub-item').forEach(el => observer.observe(el));
 
 /* Hero canvas — molecular particle network */
