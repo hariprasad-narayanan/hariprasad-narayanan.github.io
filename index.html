@@ -310,7 +310,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 .portfolio-card-tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-bottom: 1.2rem; }
 .portfolio-card-link { font-family: var(--font-mono); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-light); display: inline-flex; align-items: center; gap: .3rem; margin-top: auto; }
 .portfolio-card-link:hover { color: var(--teal); }
-@media (max-width: 900px) { .portfolio-grid { grid-template-columns: 1fr; gap: 1.2rem; } .portfolio-card--wide { flex-direction: column; } .portfolio-card-preview--wide { width: 100%; } .portfolio-card-preview { min-height: 160px; } .portfolio-card-body { padding: 1.2rem; } }
+@media (max-width: 900px) { .portfolio-grid { grid-template-columns: 1fr; gap: 1.2rem; } .portfolio-card--wide { flex-direction: column; grid-column: span 1; } .portfolio-card-preview--wide { width: 100%; } .portfolio-card-preview { min-height: 160px; } .portfolio-card-body { padding: 1.2rem; } }
 .hero-two-col { display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center; width: 100%; }
 .hero-text-col { display: flex; flex-direction: column; }
 .hero-photo-col { display: flex; justify-content: center; align-items: flex-end; }
@@ -964,7 +964,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
       <div class="portfolio-card animate-on-scroll">
         <div class="portfolio-card-preview" style="background:linear-gradient(135deg,#0a1628 0%,#1a2a4a 50%,#0f1e38 100%)">
           <div class="portfolio-preview-inner">
-            <div style="font-family:var(--font-mono);font-size:.55rem;letter-spacing:.15em;color:#6ab4f5;text-transform:uppercase;margin-bottom:.6rem">vit.ac.in/conference/20opc</div>
+            <div style="font-family:var(--font-mono);font-size:.55rem;letter-spacing:.15em;color:#6ab4f5;text-transform:uppercase;margin-bottom:.6rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">vit.ac.in/conference/20opc</div>
             <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:600;color:#e8f0fc;line-height:1.2;margin-bottom:.5rem">20th Orientation<br>Programme in Catalysis</div>
             <div style="font-family:var(--font-mono);font-size:.58rem;color:#8aacce;margin-bottom:1rem">May 4–17, 2026 · VIT Vellore</div>
             <div style="display:flex;gap:.4rem;flex-wrap:wrap">
@@ -1048,7 +1048,7 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
           <div class="portfolio-preview-inner">
             <div style="font-family:var(--font-mono);font-size:.55rem;letter-spacing:.15em;color:#b89cec;text-transform:uppercase;margin-bottom:.6rem">catalysiseducation.substack.com</div>
             <!-- Simulated newsletter masthead -->
-            <div style="border:1px solid rgba(184,156,236,.2);border-radius:4px;overflow:hidden;background:rgba(255,255,255,.03)">
+            <div style="border:1px solid rgba(184,156,236,.2);max-width: 100%;border-radius:4px;overflow:hidden;background:rgba(255,255,255,.03)">
               <div style="background:linear-gradient(90deg,rgba(184,156,236,.15),rgba(43,207,195,.08));padding:.5rem .75rem;border-bottom:1px solid rgba(184,156,236,.12);display:flex;align-items:center;gap:.5rem">
                 <div style="width:6px;height:6px;border-radius:50%;background:#b89cec"></div>
                 <div style="font-family:var(--font-display);font-size:.75rem;font-weight:600;color:#e8e0f8;letter-spacing:.01em">Catalysis Education Newsletter</div>
