@@ -324,6 +324,29 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 @media (max-width: 1000px) { .hero-two-col { grid-template-columns: 1fr; } .hero-photo-col { order: -1; justify-content: flex-start; } .hero-photo-frame { width: 260px; } }
 @media (max-width: 600px) { .hero-photo-frame { width: 200px; } }
 
+/* ========== HERO CAROUSEL ========== */
+.hero-slides { position: relative; z-index: 2; width: 100%; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.hero-slide { position: absolute; inset: 0; opacity: 0; transform: translateY(14px); transition: opacity .85s cubic-bezier(.4,0,.2,1), transform .85s cubic-bezier(.4,0,.2,1); pointer-events: none; padding: 8rem 2rem 5rem; max-width: 1160px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; justify-content: center; }
+.hero-slide.slide-active { opacity: 1; transform: translateY(0); pointer-events: all; position: relative; }
+
+/* Services slide layout */
+.hs-services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .9rem; margin: 2rem 0 2.5rem; max-width: 820px; }
+.hs-service-card { padding: 1.2rem 1.4rem; border: 1px solid var(--border-dim); border-radius: var(--r); background: rgba(255,255,255,.025); display: flex; align-items: flex-start; gap: .9rem; transition: border-color .25s, background .25s; }
+.hs-service-card:hover { border-color: var(--border); background: rgba(200,151,42,.04); }
+.hs-service-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: .1rem; }
+.hs-service-card h4 { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-light); margin-bottom: .3rem; }
+.hs-service-card p { font-size: .85rem; color: var(--text-3); line-height: 1.6; }
+@media (max-width: 680px) { .hs-services-grid { grid-template-columns: 1fr; } }
+
+/* Carousel controls */
+.hero-carousel-controls { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; align-items: center; gap: 1.2rem; }
+.hero-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.15); cursor: pointer; transition: background .3s, transform .3s; }
+.hero-dot.dot-active { background: var(--gold-light); transform: scale(1.25); border-color: var(--gold-light); }
+
+/* Progress bar */
+.hero-progress { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; z-index: 10; background: rgba(255,255,255,.04); }
+.hero-progress-bar { height: 100%; background: linear-gradient(90deg, var(--gold-dim), var(--gold-light)); width: 0%; transition: width linear; }
+
 /* ========== LIGHTBOX ========== */
 #photo-lightbox { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(7,9,15,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); justify-content: center; align-items: center; cursor: zoom-out; }
 #photo-lightbox.open { display: flex; animation: lbFadeIn 0.25s ease; }
@@ -712,43 +735,100 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
   <canvas id="hero-canvas"></canvas>
   <div class="hero-grain"></div>
   <div class="hero-gradient"></div>
-  <div class="hero-content container">
-    <div class="hero-two-col">
-      <div class="hero-text-col">
-        <div class="hero-eyebrow">Academic Digital Services and Research Communication</div>
-        <h1 class="hero-name">Dr. <em>Hariprasad</em><br>Narayanan</h1>
-        <p class="hero-sub">Heterogeneous Catalysis. Photocatalysis. Sustainable Aviation Fuel. Industrial Decarbonization. Real Zero Emission. Green Hydrogen. Environmental and Energy Systems. Carbon Capture, Utilization and Storage (CCUS). Chemical Education. Academic Digital Services that Communicate Research at the Level It Deserves.</p>
-        <div class="hero-pills">
-          <span class="hero-pill active">CO<sub>2</sub> Reduction</span>
-          <span class="hero-pill active">Graphitic Carbon Nitride</span>
-          <span class="hero-pill">Sustainable Aviation Fuels</span>
-          <span class="hero-pill">Green Hydrogen</span>
-          <span class="hero-pill">Net Zero</span>
-          <span class="hero-pill">Academic Communication</span>
+
+  <!-- ===== HERO CAROUSEL ===== -->
+  <div class="hero-slides" id="heroSlides">
+
+    <!-- SLIDE 1 — Academic Digital Services (landing first) -->
+    <div class="hero-slide slide-active" id="heroSlide0">
+      <div class="hero-eyebrow" style="animation:none;opacity:1">Academic Digital Services &amp; Research Communication</div>
+      <h1 class="hero-name" style="animation:none;opacity:1;font-size:clamp(2.2rem,5vw,4.4rem)">Research Communicated<br>at the Level It <em>Deserves</em></h1>
+      <p class="hero-sub" style="animation:none;opacity:1;max-width:680px">Domain-informed digital services for researchers, labs, institutions, and conferences. Every project begins with the researcher's field — not a template. Built by a PhD researcher who works in the domain.</p>
+      <div class="hs-services-grid">
+        <div class="hs-service-card">
+          <span class="hs-service-icon">🌐</span>
+          <div>
+            <h4>Academic Websites</h4>
+            <p>Researcher · Lab · Department · Conference sites hosted on GitHub Pages.</p>
+          </div>
         </div>
-        <div class="hero-actions">
-          <a href="#" onclick="showPage('research'); return false;" class="btn-primary">Research Portfolio</a>
-          <a href="#" onclick="showPage('services'); return false;" class="btn-outline">Academic Services</a>
-          <a href="#" onclick="showPage('publications'); return false;" class="btn-outline">Publications</a>
+        <div class="hs-service-card">
+          <span class="hs-service-icon">📄</span>
+          <div>
+            <h4>LaTeX &amp; Documents</h4>
+            <p>Publication-grade typesetting, Word-to-LaTeX conversion, theses, reports.</p>
+          </div>
+        </div>
+        <div class="hs-service-card">
+          <span class="hs-service-icon">🎯</span>
+          <div>
+            <h4>Conference &amp; Event Design</h4>
+            <p>Programme booklets, brochures, abstract books, conference websites.</p>
+          </div>
+        </div>
+        <div class="hs-service-card">
+          <span class="hs-service-icon">🔬</span>
+          <div>
+            <h4>Science Communication</h4>
+            <p>Explainers, visual materials, policy briefs, educational content.</p>
+          </div>
         </div>
       </div>
-      <div class="hero-photo-col">
-        <div class="hero-photo-frame">
-          <!-- ★ CHANGE 1: Hero photo — click to enlarge -->
-          <img src="assets/images/DSC004401.jpg"
-               alt="Dr. Hariprasad Narayanan presenting"
-               class="hero-photo-img photo-clickable"
-               onclick="openLightbox(this.src, this.alt)"
-               title="Click to enlarge">
-          <div class="hero-photo-overlay"></div>
-          <div class="hero-photo-caption">
-            <span class="hero-photo-caption-dot"></span>
-            Invited Talk · Bharata Mata College, 2024
+      <div class="hero-actions" style="animation:none;opacity:1">
+        <a href="#" onclick="showPage('services'); return false;" class="btn-primary">Explore All Services</a>
+        <a href="#" onclick="showPage('portfolio'); return false;" class="btn-outline">View Portfolio</a>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 — Personal / Research Identity -->
+    <div class="hero-slide" id="heroSlide1">
+      <div class="hero-two-col">
+        <div class="hero-text-col">
+          <div class="hero-eyebrow" style="animation:none;opacity:1">PhD · IIT Madras · Heterogeneous Catalysis</div>
+          <h1 class="hero-name" style="animation:none;opacity:1">Dr. <em>Hariprasad</em><br>Narayanan</h1>
+          <p class="hero-sub" style="animation:none;opacity:1">Heterogeneous Catalysis. Photocatalysis. Sustainable Aviation Fuel. Industrial Decarbonization. Green Hydrogen. CCUS. Academic Digital Services that Communicate Research at the Level It Deserves.</p>
+          <div class="hero-pills" style="animation:none;opacity:1">
+            <span class="hero-pill active">CO<sub>2</sub> Reduction</span>
+            <span class="hero-pill active">Graphitic Carbon Nitride</span>
+            <span class="hero-pill">Sustainable Aviation Fuels</span>
+            <span class="hero-pill">Green Hydrogen</span>
+            <span class="hero-pill">Net Zero</span>
+            <span class="hero-pill">Academic Communication</span>
+          </div>
+          <div class="hero-actions" style="animation:none;opacity:1">
+            <a href="#" onclick="showPage('research'); return false;" class="btn-primary">Research Portfolio</a>
+            <a href="#" onclick="showPage('about'); return false;" class="btn-outline">About Me</a>
+            <a href="#" onclick="showPage('publications'); return false;" class="btn-outline">Publications</a>
+          </div>
+        </div>
+        <div class="hero-photo-col">
+          <div class="hero-photo-frame">
+            <img src="assets/images/DSC004401.jpg"
+                 alt="Dr. Hariprasad Narayanan presenting"
+                 class="hero-photo-img photo-clickable"
+                 onclick="openLightbox(this.src, this.alt)"
+                 title="Click to enlarge">
+            <div class="hero-photo-overlay"></div>
+            <div class="hero-photo-caption">
+              <span class="hero-photo-caption-dot"></span>
+              Invited Talk · Bharata Mata College, 2024
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+  </div><!-- /hero-slides -->
+
+  <!-- Dot indicators -->
+  <div class="hero-carousel-controls" id="heroControls">
+    <div class="hero-dot dot-active" onclick="goToSlide(0)" title="Services"></div>
+    <div class="hero-dot" onclick="goToSlide(1)" title="About"></div>
   </div>
+
+  <!-- Progress bar -->
+  <div class="hero-progress"><div class="hero-progress-bar" id="heroProgressBar"></div></div>
+
   <div class="scroll-indicator">
     <div class="scroll-line"></div>
     <span class="scroll-text">Scroll</span>
@@ -1566,6 +1646,68 @@ function showPage(id) {
     showPage(hash);
   }
   // If no hash, hero is already active by default (class="page-section active" in HTML)
+})();
+
+/* ===== HERO CAROUSEL ===== */
+(function() {
+  const SLIDE_DURATION = 6000; // ms per slide
+  const TRANSITION_MS  = 850;  // must match CSS transition duration
+  const slides   = document.querySelectorAll('.hero-slide');
+  const dots     = document.querySelectorAll('.hero-dot');
+  const bar      = document.getElementById('heroProgressBar');
+  const heroSec  = document.getElementById('hero');
+  let current    = 0;
+  let timer      = null;
+  let barAnim    = null;
+  let paused     = false;
+
+  function setSlide(idx) {
+    // bounds guard
+    idx = (idx + slides.length) % slides.length;
+    slides[current].classList.remove('slide-active');
+    dots[current].classList.remove('dot-active');
+    current = idx;
+    slides[current].classList.add('slide-active');
+    dots[current].classList.add('dot-active');
+    startProgress();
+  }
+
+  function startProgress() {
+    // reset bar
+    if (bar) { bar.style.transition = 'none'; bar.style.width = '0%'; }
+    clearTimeout(barAnim);
+    barAnim = setTimeout(() => {
+      if (bar) { bar.style.transition = 'width ' + SLIDE_DURATION + 'ms linear'; bar.style.width = '100%'; }
+    }, 30);
+  }
+
+  function next() { setSlide(current + 1); }
+
+  function startAuto() {
+    clearInterval(timer);
+    timer = setInterval(() => { if (!paused) next(); }, SLIDE_DURATION);
+  }
+
+  // Pause on hover (so user can read / click CTAs)
+  heroSec.addEventListener('mouseenter', () => { paused = true; });
+  heroSec.addEventListener('mouseleave', () => { paused = false; });
+
+  // Touch swipe support
+  let touchX = null;
+  heroSec.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  heroSec.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 40) { dx < 0 ? setSlide(current + 1) : setSlide(current - 1); startAuto(); }
+    touchX = null;
+  }, { passive: true });
+
+  // Initialise
+  startProgress();
+  startAuto();
+
+  // Expose goToSlide for the dot onclick attributes in HTML
+  window.goToSlide = function(idx) { setSlide(idx); startAuto(); };
 })();
 
 /* NAV scroll */
