@@ -366,9 +366,8 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
 .page-section.active { display: block !important; }
 /* Hero uses flex layout — preserve it */
 #hero.page-section.active { display: flex !important; flex-direction: column; }
-/* Scroll indicator only meaningful on hero */
-.scroll-indicator { display: none; }
-#hero.page-section.active .scroll-indicator { display: flex; }
+/* Scroll indicator removed */
+.scroll-indicator { display: none !important; }
 /* Active nav link highlight */
 #nav .nav-links a.nav-active { color: var(--gold-light); }
 </style>
@@ -742,8 +741,8 @@ footer { background: var(--navy-1); border-top: 1px solid var(--border-dim); pad
     <!-- SLIDE 1 — Academic Digital Services (landing first) -->
     <div class="hero-slide slide-active" id="heroSlide0">
       <div class="hero-eyebrow" style="animation:none;opacity:1">Academic Digital Services &amp; Research Communication</div>
-      <h1 class="hero-name" style="animation:none;opacity:1;font-size:clamp(2.2rem,5vw,4.4rem)">Research Communicated<br>at the Level It <em>Deserves</em></h1>
-      <p class="hero-sub" style="animation:none;opacity:1;max-width:680px">Domain-informed digital services for researchers, labs, institutions, and conferences. Every project begins with the researcher's field — not a template. Built by a PhD researcher who works in the domain.</p>
+      <h1 class="hero-name" style="animation:none;opacity:1;font-size:clamp(2.2rem,5vw,4.4rem)">Communicate Research<br>at the Level It <em>Deserves</em></h1>
+      <p class="hero-sub" style="animation:none;opacity:1;max-width:680px">Domain-informed digital services for researchers, labs, institutions, and conferences. Every project begins with the researcher's field, not a template. Built by a PhD researcher who works in the domain.</p>
       <div class="hs-services-grid">
         <div class="hs-service-card">
           <span class="hs-service-icon">🌐</span>
