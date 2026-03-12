@@ -299,6 +299,12 @@ section:nth-child(even) { background: var(--navy-1); }
 
 .about-text p { margin-bottom: 1.2rem; font-size: clamp(0.95rem, 2vw, 1.05rem); color: var(--text-2); }
 
+/* Animated Testimonial Cards */
+.testimonial-card-animated { position: relative; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+.testimonial-card-animated::before { content: ''; position: absolute; top: -100%; left: -100%; width: 300%; height: 300%; background: conic-gradient(transparent, var(--gold), transparent 30%, var(--teal), transparent 60%); z-index: 0; animation: spin 8s linear infinite; }
+.testimonial-card-animated::after { content: ''; position: absolute; inset: 2px; background: var(--navy-1); border-radius: 6px; z-index: 1; }
+.testimonial-card-inner { position: relative; z-index: 2; padding: clamp(1.5rem, 3vw, 2rem); display: flex; flex-direction: column; flex-grow: 1; background: linear-gradient(135deg, rgba(255,255,255,.03), transparent); border-radius: 6px; }
+
 .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr)); gap: clamp(2rem, 5vw, 5rem); }
 .contact-info h3 { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2rem); font-weight: 600; color: var(--text); margin-bottom: 1rem; }
 .contact-info p { color: var(--text-2); margin-bottom: 2rem; font-size: clamp(0.95rem, 2vw, 1.05rem); }
@@ -935,7 +941,7 @@ footer { background: var(--navy-2); border-top: 1px solid var(--border-dim); pad
         
         <p>Dr. Narayanan previously worked as a Research Associate at the National Centre for Catalysis Research, IIT Madras, where he collaborated with Prof. B. Viswanathan on research related to industrial decarbonisation, including the development of CO<sub>2</sub>-to-sustainable aviation fuel pathways using reverse water–gas shift and Fischer–Tropsch synthesis.</p>
         
-        <p>He completed his PhD in Environmental Studies from Cochin University of Science and Technology, conducting doctoral research at the National Centre for Catalysis Research, IIT Madras under the guidance of Prof. B. Viswanathan. His doctoral work focused on the activation of carbon dioxide and its reduction to value-added chemicals and fuels on graphitic carbon nitride surfaces.</p>
+        <p>He completed his PhD in Environmental Studies from Cochin University of Science and Technology, conducting doctoral research at the National Centre for Catalysis Research, IIT Madras under the guidance of Prof. B. Viswanathan. His doctoral work focused on the activation of carbon dioxide and its reduction to value-added chemicals and fuels on graphitic carbon nitride surfaces. He holds a Master’s degree in Environmental Technology with a specialization in Environmental Engineering, and a Bachelor’s degree in Chemistry.</p>
       </div>
     </div>
 
@@ -977,22 +983,39 @@ footer { background: var(--navy-2); border-top: 1px solid var(--border-dim); pad
       <h2 class="section-title">Voices from the<br>Research Community</h2>
       <div class="divider"></div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:1.5rem;max-width:720px">
-      <div class="animate-on-scroll" style="padding:clamp(1.5rem, 4vw, 2rem);border-left:2px solid var(--gold);border:1px solid var(--border-dim);border-left:2px solid var(--gold);border-radius:var(--r);background:rgba(255,255,255,.02)">
-        <p style="font-family:var(--font-display);font-size:clamp(1rem, 2.5vw, 1.1rem);font-style:italic;color:var(--text-2);line-height:1.7;margin-bottom:1rem">"[Replace with a real testimonial from a collaborator. Focus on what specific problem was solved and the quality of the result.]"</p>
-        <div style="font-family:var(--font-mono);font-size:.68rem;color:var(--gold-light);letter-spacing:.08em">[Full Name]</div>
-        <div style="font-family:var(--font-mono);font-size:.62rem;color:var(--text-3);letter-spacing:.06em">[Designation], [Department / Institution]</div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(1.5rem, 3vw, 2rem);">
+      
+      <div class="testimonial-card-animated animate-on-scroll">
+        <div class="testimonial-card-inner">
+          <p style="font-family:var(--font-display);font-size:clamp(1rem, 2vw, 1.1rem);font-style:italic;color:var(--text-2);line-height:1.7;margin-bottom:1.5rem;flex-grow:1;">"Dr. Hariprasad Narayanan developed my research portfolio website with great attention to detail. He carefully understood my requirements and translated them into a clear, structured, and professional online profile. The website presents my research work effectively, and I am very pleased with the final outcome."</p>
+          <div>
+            <div style="font-family:var(--font-mono);font-size:.68rem;color:var(--gold-light);letter-spacing:.08em;margin-bottom:0.2rem;line-height:1.3;">Dr. Solai Pandidurai</div>
+            <div style="font-family:var(--font-mono);font-size:.62rem;color:var(--text-3);letter-spacing:.06em;line-height:1.4;">Postdoctoral Research Fellow, iSm2, Aix-Marseille University, France</div>
+          </div>
+        </div>
       </div>
-      <div class="animate-on-scroll" style="padding:clamp(1.5rem, 4vw, 2rem);border-left:2px solid var(--teal);border:1px solid var(--border-dim);border-left:2px solid var(--teal);border-radius:var(--r);background:rgba(255,255,255,.02)">
-        <p style="font-family:var(--font-display);font-size:clamp(1rem, 2.5vw, 1.1rem);font-style:italic;color:var(--text-2);line-height:1.7;margin-bottom:1rem">"[Replace with a real testimonial. A quote about how domain expertise made a difference will be more convincing than general praise.]"</p>
-        <div style="font-family:var(--font-mono);font-size:.68rem;color:var(--gold-light);letter-spacing:.08em">[Full Name]</div>
-        <div style="font-family:var(--font-mono);font-size:.62rem;color:var(--text-3);letter-spacing:.06em">[Designation], [Department / Institution]</div>
+      
+      <div class="testimonial-card-animated animate-on-scroll">
+        <div class="testimonial-card-inner">
+          <p style="font-family:var(--font-display);font-size:clamp(1rem, 2vw, 1.1rem);font-style:italic;color:var(--text-2);line-height:1.7;margin-bottom:1.5rem;flex-grow:1;">"Dr. Hariprasad Narayanan assisted us in preparing the brochure and website for the 20th Orientation Programme at VIT. He was able to translate the programme details into a clear and well-organized format suitable for academic communication. The materials were thoughtfully designed and helped present the programme information effectively to participants and invited speakers. I appreciate the care and effort he put into the work."</p>
+          <div>
+            <div style="font-family:var(--font-mono);font-size:.68rem;color:var(--gold-light);letter-spacing:.08em;margin-bottom:0.2rem;line-height:1.3;">Dr. Ramasamy Shanmugam</div>
+            <div style="font-family:var(--font-mono);font-size:.62rem;color:var(--text-3);letter-spacing:.06em;line-height:1.4;">Assistant Professor, CO<sub>2</sub> Research and Green Technologies Centre, VIT, Vellore, India</div>
+          </div>
+        </div>
       </div>
-      <div class="animate-on-scroll" style="padding:clamp(1.5rem, 4vw, 2rem);border-left:2px solid var(--gold);border:1px solid var(--border-dim);border-left:2px solid var(--gold);border-radius:var(--r);background:rgba(255,255,255,.02)">
-        <p style="font-family:var(--font-display);font-size:clamp(1rem, 2.5vw, 1.1rem);font-style:italic;color:var(--text-2);line-height:1.7;margin-bottom:1rem">"[Replace with a real testimonial. If possible, include one from outside India to support international positioning.]"</p>
-        <div style="font-family:var(--font-mono);font-size:.68rem;color:var(--gold-light);letter-spacing:.08em">[Full Name]</div>
-        <div style="font-family:var(--font-mono);font-size:.62rem;color:var(--text-3);letter-spacing:.06em">[Designation], [Department / Institution]</div>
+      
+      <div class="testimonial-card-animated animate-on-scroll">
+        <div class="testimonial-card-inner">
+          <p style="font-family:var(--font-display);font-size:clamp(1rem, 2vw, 1.1rem);font-style:italic;color:var(--text-2);line-height:1.7;margin-bottom:1.5rem;flex-grow:1;">"Dr. Hariprasad Narayanan prepared a graphic educational booklet on marine litter for the School of Sustainability at Indian Institute of Technology Madras. The booklet presents the issue in a clear and visually engaging format that can effectively reach students and the wider public. He independently handled the concept development, narrative structure, illustrations, and layout, bringing together scientific clarity with thoughtful design. The final booklet communicates the environmental message in a simple and impactful way."</p>
+          <div>
+            <div style="font-family:var(--font-mono);font-size:.68rem;color:var(--gold-light);letter-spacing:.08em;margin-bottom:0.2rem;line-height:1.3;">Parthiban V</div>
+            <div style="font-family:var(--font-mono);font-size:.62rem;color:var(--text-3);letter-spacing:.06em;line-height:1.4;">Deputy Chief Manager (CCUS), Energy Consortium, Indian Institute of Technology Madras</div>
+          </div>
+        </div>
       </div>
+      
     </div>
   </div>
 </section>
@@ -1001,6 +1024,8 @@ footer { background: var(--navy-2); border-top: 1px solid var(--border-dim); pad
 <section id="contact" class="page-section">
   <div class="container">
     <div class="contact-grid">
+      
+      <!-- Contact Info Left Column -->
       <div class="contact-info animate-on-scroll">
         <div class="section-label">Get in Touch</div>
         <h2 class="section-title">Start a Conversation</h2>
@@ -1013,6 +1038,13 @@ footer { background: var(--navy-2); border-top: 1px solid var(--border-dim); pad
           <div class="contact-item" style="cursor:default"><span class="contact-item-icon">📍</span><div class="contact-item-text"><span class="contact-item-label">Location</span><span class="contact-item-val">Jalahalli West, Bengaluru – 560015</span></div></div>
         </div>
       </div>
+      
+      <!-- Pricing Information Right Column -->
+      <div class="contact-pricing animate-on-scroll" style="padding: clamp(1.5rem, 4vw, 2.5rem); border: 1px solid var(--border-dim); border-radius: var(--r); background: rgba(255,255,255,.02); align-self: start;">
+        <h3 style="font-family: var(--font-display); font-size: clamp(1.3rem, 3vw, 1.5rem); font-weight: 600; color: var(--text); margin-bottom: 1rem;">Project Scope and Pricing</h3>
+        <p style="color: var(--text-2); font-size: clamp(0.95rem, 2vw, 1.05rem); line-height: 1.8; margin-bottom: 0;">Projects vary widely in scope, from designing a single communication material to developing complete communication systems for academic events or research initiatives. For this reason, project costs are determined after an initial discussion of the requirements and objectives.</p>
+      </div>
+
     </div>
   </div>
 </section>
