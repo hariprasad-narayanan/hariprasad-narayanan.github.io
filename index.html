@@ -196,7 +196,8 @@ img { max-width: 100%; display: block; height: auto; }
 .hamburger span { width: 22px; height: 1.5px; background: var(--text-2); display: block; transition: .3s; }
 
 /* Hero */
-#hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+#hero { position: relative; }
+.hero-viewport { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
 #hero-canvas { position: absolute; inset: 0; z-index: 0; }
 .hero-grain { position: absolute; inset: 0; z-index: 1; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E"); opacity: .4; pointer-events: none; }
 .hero-gradient { position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse 80% 70% at 60% 50%, rgba(12,16,32,.3) 0%, rgba(7,9,15,.85) 70%); }
@@ -209,6 +210,35 @@ img { max-width: 100%; display: block; height: auto; }
 .btn-primary { font-family: var(--font-mono); font-size: clamp(0.65rem, 1.5vw, 0.7rem); letter-spacing: .12em; text-transform: uppercase; padding: clamp(0.7rem, 2vh, 0.85rem) clamp(1.5rem, 4vw, 2rem); background: linear-gradient(135deg, var(--gold), var(--gold-dim)); color: var(--navy); border-radius: var(--r); font-weight: 500; transition: opacity .2s, transform .2s; border: none; cursor: pointer; display: inline-block; }
 .btn-primary:hover { opacity: .85; transform: translateY(-1px); color: var(--navy); }
 
+/* --- Archive Animation Integration --- */
+#archive-wrapper { position: relative; width: 100%; height: 100vh; background-color: #050505; overflow: hidden; z-index: 5; border-top: 1px solid var(--border-dim); }
+#archive-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+#archive-presentation { position: absolute; inset: 0; z-index: 10; }
+.era-section { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding-bottom: 100px; box-sizing: border-box; opacity: 0; pointer-events: none; transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+.era-section.active { opacity: 1; pointer-events: auto; }
+.era-content-box { max-width: 800px; width: 90%; max-height: calc(100vh - 160px); overflow-y: auto; padding: clamp(1.5rem, 4vh, 3rem); text-align: center; transform: translateY(20px) scale(0.98); transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); background: transparent; }
+.era-content-box::-webkit-scrollbar { width: 6px; }
+.era-content-box::-webkit-scrollbar-track { background: transparent; }
+.era-content-box::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
+.era-section.active .era-content-box { transform: translateY(0) scale(1); }
+.era-content-box h2 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 1.5rem; background-clip: text; -webkit-background-clip: text; color: transparent; letter-spacing: -0.02em; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8)); line-height: 1.2; }
+.era-content-box p { font-size: clamp(1rem, 2vw, 1.15rem); line-height: 1.7; color: #d4d4d4; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9); text-align: center; margin-bottom: 1rem; }
+.era-0 h2 { background-image: linear-gradient(to right, #ffffff, #a3a3a3); }
+.era-1 h2 { background-image: linear-gradient(to right, #f97316, #e52e71); }
+.era-2 h2 { background-image: linear-gradient(to right, #d4af37, #8c8c8c); }
+.era-3 h2 { background-image: linear-gradient(to right, #00c6ff, #0072ff); }
+.era-4 h2 { background-image: linear-gradient(to right, #00b09b, #96c93d); }
+.era-5 h2 { background-image: linear-gradient(to right, #facc15, #f97316); }
+.era-icon-container { width: 70px; height: 70px; margin: 0 auto 1.5rem auto; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); }
+.era-icon-container svg { width: 32px; height: 32px; fill: currentColor; }
+#archive-controls { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 20; display: flex; gap: 1rem; }
+.archive-nav-btn { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 0.75rem 2rem; border-radius: 9999px; font-family: var(--font-mono); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.875rem; cursor: pointer; transition: all 0.3s ease; }
+.archive-nav-btn:hover { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.4); }
+.archive-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+#archive-progress { position: absolute; right: clamp(15px, 4vw, 40px); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 20; }
+.archive-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); transition: all 0.3s ease; cursor: pointer; }
+.archive-dot.active { background: white; transform: scale(1.5); }
+
 /* Fluid layout for common grids using auto-fit */
 section { padding: clamp(4rem, 10vh, 7rem) 0; }
 section:nth-child(odd) { background: var(--navy); }
@@ -219,14 +249,14 @@ section:nth-child(even) { background: var(--navy-1); }
 .hs-service-card:hover { border-color: var(--border); background: rgba(200,151,42,.04); }
 .hs-service-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: .1rem; }
 .hs-service-card h4 { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-light); margin-bottom: .3rem; }
-.hs-service-card p { font-size: .85rem; color: var(--text-3); line-height: 1.6; }
+.hs-service-card p { font-size: .85rem; color: var(--text-3); line-height: 1.6; text-align: left; }
 
 .expertise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(1rem, 2vw, 1.5rem); margin-top: 2rem; }
 .expertise-card { padding: clamp(1.2rem, 3vw, 1.8rem); border: 1px solid var(--border-dim); border-radius: var(--r); background: rgba(255,255,255,.02); transition: border-color .3s; }
 .expertise-card:hover { border-color: var(--border); }
 .expertise-card h4 { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-light); margin-bottom: .7rem; }
 .expertise-card ul { list-style: none; }
-.expertise-card ul li { font-size: .95rem; color: var(--text-2); padding: .3rem 0; padding-left: 1.2rem; position: relative; }
+.expertise-card ul li { font-size: .95rem; color: var(--text-2); padding: .3rem 0; padding-left: 1.2rem; position: relative; text-align: left; }
 .expertise-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--teal-dim); font-size: .9rem; }
 
 .editorial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: clamp(1rem, 3vw, 1.5rem);}
@@ -234,10 +264,10 @@ section:nth-child(even) { background: var(--navy-1); }
 .editorial-card:hover { border-color: var(--border); transform: translateY(-2px); }
 .editorial-card-icon { width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem; font-size: 1.1rem; }
 .editorial-card h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--text); margin-bottom: .6rem; }
-.editorial-card p { font-size: .95rem; color: var(--text-2); line-height: 1.6; }
+.editorial-card p { font-size: .95rem; color: var(--text-2); line-height: 1.6; text-align: left; }
 
 .service-features { list-style: none; margin: 1.5rem 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 0 clamp(1rem, 3vw, 2rem); }
-.service-features li { display: flex; align-items: flex-start; gap: .8rem; padding: .6rem 0; border-bottom: 1px solid var(--border-dim); font-size: .95rem; color: var(--text-2); }
+.service-features li { display: flex; align-items: flex-start; gap: .8rem; padding: .6rem 0; border-bottom: 1px solid var(--border-dim); font-size: .95rem; color: var(--text-2); text-align: left; }
 .service-features li::before { content: '◆'; color: var(--gold-dim); font-size: .5rem; margin-top: .35rem; flex-shrink: 0; }
 
 .philosophy-quote { font-family: var(--font-display); font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 300; line-height: 1.5; color: var(--text); position: relative; z-index: 1; }
@@ -255,7 +285,7 @@ section:nth-child(even) { background: var(--navy-1); }
 #contact { background: var(--navy-1) !important; }
 
 .services-intro { max-width: 800px; margin-bottom: clamp(2rem, 5vw, 4rem); }
-.services-intro p { font-size: clamp(1rem, 2vw, 1.1rem); color: var(--text-2); }
+.services-intro p { font-size: clamp(1rem, 2vw, 1.1rem); color: var(--text-2); text-align: left; }
 .service-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border-dim); margin-bottom: 3rem; flex-wrap: wrap; }
 .service-tab { font-family: var(--font-mono); font-size: clamp(0.6rem, 1.5vw, 0.68rem); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1rem, 3vw, 1.5rem); cursor: pointer; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
 .service-tab.active { color: var(--gold-light); border-bottom-color: var(--gold); }
@@ -263,7 +293,7 @@ section:nth-child(even) { background: var(--navy-1); }
 .service-panel.active { display: block; animation: lbFadeIn 0.3s ease; }
 .service-panel-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start; }
 .service-desc h3 { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2rem); font-weight: 600; color: var(--text); margin-bottom: 1rem; }
-.service-desc p { font-size: clamp(0.95rem, 2vw, 1.05rem); color: var(--text-2); margin-bottom: 1rem; line-height: 1.8; }
+.service-desc p { font-size: clamp(0.95rem, 2vw, 1.05rem); color: var(--text-2); margin-bottom: 1rem; line-height: 1.8; text-align: left; }
 
 .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.5rem, 4vw, 2.5rem); align-items: stretch; }
 .portfolio-card { border: 1px solid var(--border-dim); border-radius: 8px; overflow: hidden; background: var(--navy-1); transition: border-color .3s, transform .3s; display: flex; flex-direction: column; }
@@ -276,7 +306,7 @@ section:nth-child(even) { background: var(--navy-1); }
 .portfolio-card-body { padding: clamp(1.2rem, 3vw, 1.8rem); flex: 1; display: flex; flex-direction: column; justify-content: flex-start; }
 .portfolio-card-type { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); margin-bottom: .6rem; }
 .portfolio-card-title { font-family: var(--font-display); font-size: clamp(1.1rem, 2.5vw, 1.2rem); font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: .8rem; }
-.portfolio-card-desc { font-size: .92rem; color: var(--text-2); line-height: 1.7; flex: 1; margin-bottom: 1.2rem; }
+.portfolio-card-desc { font-size: .92rem; color: var(--text-2); line-height: 1.7; flex: 1; margin-bottom: 1.2rem; text-align: left; }
 .portfolio-card-tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-bottom: 1.2rem; }
 .portfolio-card-link { font-family: var(--font-mono); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-light); display: inline-flex; align-items: center; gap: .3rem; margin-top: auto; }
 .portfolio-card-link:hover { color: var(--teal); }
@@ -285,7 +315,7 @@ section:nth-child(even) { background: var(--navy-1); }
 .process-step { counter-increment: steps; display: flex; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border-dim); }
 .process-step::before { content: counter(steps, decimal-leading-zero); font-family: var(--font-mono); font-size: .7rem; color: var(--gold-dim); padding-top: .1rem; min-width: 2rem; flex-shrink: 0; }
 .process-step-title { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); margin-bottom: .3rem; }
-.process-step-desc { font-size: .95rem; color: var(--text-2); }
+.process-step-desc { font-size: .95rem; color: var(--text-2); text-align: left; }
 
 .about-grid { display: grid; grid-template-columns: minmax(240px, 280px) 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
 .about-photo-wrap { position: sticky; top: clamp(4rem, 10vh, 6rem); }
@@ -297,7 +327,7 @@ section:nth-child(even) { background: var(--navy-1); }
 .advisor-photo-frame::before { content: ''; position: absolute; width: 250%; height: 250%; background: conic-gradient(transparent, var(--gold), transparent 30%, var(--teal), transparent 60%); z-index: 0; animation: spin 8s linear infinite; }
 .advisor-photo-frame::after { content: ''; position: absolute; inset: 2px; background: var(--navy-2); border-radius: 6px; z-index: 1; }
 
-.about-text p { margin-bottom: 1.2rem; font-size: clamp(0.95rem, 2vw, 1.05rem); color: var(--text-2); }
+.about-text p { margin-bottom: 1.2rem; font-size: clamp(0.95rem, 2vw, 1.05rem); color: var(--text-2); text-align: left; }
 
 /* Animated Testimonial Cards */
 .testimonial-card-animated { position: relative; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
@@ -307,7 +337,7 @@ section:nth-child(even) { background: var(--navy-1); }
 
 .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr)); gap: clamp(2rem, 5vw, 5rem); }
 .contact-info h3 { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2rem); font-weight: 600; color: var(--text); margin-bottom: 1rem; }
-.contact-info p { color: var(--text-2); margin-bottom: 2rem; font-size: clamp(0.95rem, 2vw, 1.05rem); }
+.contact-info p { color: var(--text-2); margin-bottom: 2rem; font-size: clamp(0.95rem, 2vw, 1.05rem); text-align: left; }
 .contact-items { display: flex; flex-direction: column; gap: .8rem; }
 .contact-item { display: flex; align-items: center; gap: clamp(0.8rem, 2vw, 1rem); padding: clamp(0.8rem, 2vw, 1rem) clamp(1rem, 3vw, 1.2rem); border: 1px solid var(--border-dim); border-radius: var(--r); background: rgba(255,255,255,.02); transition: border-color .2s; }
 .contact-item:hover { border-color: var(--border); }
@@ -417,44 +447,137 @@ footer { background: var(--navy-2); border-top: 1px solid var(--border-dim); pad
   <a href="#" onclick="showPage('contact'); closeMobile(); return false;">Contact</a>
 </div>
 
-<!-- HERO -->
+<!-- HERO + ARCHIVE ANIMATION -->
 <section id="hero" class="page-section active">
-  <canvas id="hero-canvas"></canvas>
-  <div class="hero-grain"></div>
-  <div class="hero-gradient"></div>
+  <div class="hero-viewport">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-grain"></div>
+    <div class="hero-gradient"></div>
 
-  <div class="hero-content">
-    <div class="hero-eyebrow" style="animation:none;opacity:1">Academic Digital Services &amp; Research Communication</div>
-    <h1 class="hero-name" style="animation:none;opacity:1">Communicate Research<br>at the Level It <em>Deserves</em></h1>
-    <p class="hero-sub" style="animation:none;opacity:1">Research websites, conference platforms, institutional reports, and educational materials designed by a researcher who understands the science behind the communication.</p>
-    
-    <p style="font-family: var(--font-mono); font-size: clamp(0.65rem, 1.5vw, 0.75rem); color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem; opacity: 1;">Founded by Dr. Hariprasad Narayanan, Catalysis Researcher</p>
+    <div class="hero-content">
+      <div class="hero-eyebrow" style="animation:none;opacity:1">Academic Digital Services &amp; Research Communication</div>
+      <h1 class="hero-name" style="animation:none;opacity:1">Communicate Research<br>at the Level It <em>Deserves</em></h1>
+      <p class="hero-sub" style="animation:none;opacity:1">Research websites, conference platforms, institutional reports, and educational materials designed by a researcher who understands the science behind the communication.</p>
+      
+      <p style="font-family: var(--font-mono); font-size: clamp(0.65rem, 1.5vw, 0.75rem); color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem; opacity: 1;">Founded by Dr. Hariprasad Narayanan, Catalysis Researcher</p>
 
-    <div class="hs-services-grid">
-      <div class="hs-service-card">
-        <span class="hs-service-icon">🔬</span>
-        <div>
-          <h4>Research-Informed Design</h4>
-          <p>Communication materials shaped by an understanding of scientific structure, not just visual presentation.</p>
+      <div class="hs-services-grid">
+        <div class="hs-service-card">
+          <span class="hs-service-icon">🔬</span>
+          <div>
+            <h4>Research-Informed Design</h4>
+            <p>Communication materials shaped by an understanding of scientific structure, not just visual presentation.</p>
+          </div>
+        </div>
+        <div class="hs-service-card">
+          <span class="hs-service-icon">📚</span>
+          <div>
+            <h4>Knowledge Archives</h4>
+            <p>Academic event platforms designed to preserve intellectual outcomes as lasting digital resources.</p>
+          </div>
+        </div>
+        <div class="hs-service-card">
+          <span class="hs-service-icon">📄</span>
+          <div>
+            <h4>Institutional Communication</h4>
+            <p>Reports, documents, and digital systems that present research with clarity and professional quality.</p>
+          </div>
+        </div>
+        <div class="hs-service-card" style="border-color: transparent; background: transparent; display: flex; align-items: center; justify-content: center; padding: 0;">
+           <a href="#" onclick="showPage('services'); return false;" class="btn-primary" style="width: 100%; text-align: center;">Explore Core Pillars</a>
         </div>
       </div>
-      <div class="hs-service-card">
-        <span class="hs-service-icon">📚</span>
-        <div>
-          <h4>Knowledge Archives</h4>
-          <p>Academic event platforms designed to preserve intellectual outcomes as lasting digital resources.</p>
-        </div>
-      </div>
-      <div class="hs-service-card">
-        <span class="hs-service-icon">📄</span>
-        <div>
-          <h4>Institutional Communication</h4>
-          <p>Reports, documents, and digital systems that present research with clarity and professional quality.</p>
-        </div>
-      </div>
-      <div class="hs-service-card" style="border-color: transparent; background: transparent; display: flex; align-items: center; justify-content: center; padding: 0;">
-         <a href="#" onclick="showPage('services'); return false;" class="btn-primary" style="width: 100%; text-align: center;">Explore Core Pillars</a>
-      </div>
+    </div>
+  </div>
+
+  <!-- ARCHIVE ANIMATION INTEGRATION -->
+  <div id="archive-wrapper">
+    <canvas id="archive-canvas"></canvas>
+
+    <!-- Progress Indicators -->
+    <div id="archive-progress">
+        <div class="archive-dot active" onclick="setArchiveEra(0)"></div>
+        <div class="archive-dot" onclick="setArchiveEra(1)"></div>
+        <div class="archive-dot" onclick="setArchiveEra(2)"></div>
+        <div class="archive-dot" onclick="setArchiveEra(3)"></div>
+        <div class="archive-dot" onclick="setArchiveEra(4)"></div>
+        <div class="archive-dot" onclick="setArchiveEra(5)"></div>
+    </div>
+
+    <!-- Main Presentation Container -->
+    <div id="archive-presentation">
+        
+        <!-- Era 0: Intro -->
+        <section class="era-section active" data-era="0">
+            <div class="era-content-box era-0">
+                <h2>System Analysis: Human Progression</h2>
+                <p>Human history is a sequence of technological shifts. We have moved from basic fire to complex digital networks. Click to examine this progression and its hidden vulnerabilities.</p>
+            </div>
+        </section>
+
+        <!-- Era 1: Fire & Stone -->
+        <section class="era-section" data-era="1">
+            <div class="era-content-box era-1">
+                <div class="era-icon-container" style="color: #f97316;">
+                    <svg viewBox="0 0 24 24"><path d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C7.47 13.36 7.15 12.45 7.13 11.55C5.83 13.1 5.42 15.28 6.06 17.19C6.41 18.23 7.11 19.16 8.05 19.78C9.53 20.75 11.37 21 13 21C16.03 21 18.73 19.11 19.53 16.25C19.95 14.73 19.46 12.65 17.66 11.2Z"/></svg>
+                </div>
+                <h2>Physical Manipulation</h2>
+                <p>Early hominids gained a survival advantage through tools. Controlling fire and carving stone allowed early societies to manipulate their environment. This period established the physical basis for all future engineering.</p>
+            </div>
+        </section>
+
+        <!-- Era 2: Industrial -->
+        <section class="era-section" data-era="2">
+            <div class="era-content-box era-2">
+                <div class="era-icon-container" style="color: #eab308;">
+                    <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+                </div>
+                <h2>Mechanical Acceleration</h2>
+                <p>The Industrial Revolution marked a rapid increase in energy consumption. Steam engines, electrical grids, and chemical manufacturing multiplied our physical capabilities. This era created systems that required complex maintenance.</p>
+            </div>
+        </section>
+
+        <!-- Era 3: Science & Quantum -->
+        <section class="era-section" data-era="3">
+            <div class="era-content-box era-3">
+                <div class="era-icon-container" style="color: #60a5fa;">
+                    <svg viewBox="0 0 24 24"><path d="M12,22C6.477,22,2,17.523,2,12S6.477,2,12,2s10,4.477,10,10S17.523,22,12,22z M12,20c4.411,0,8-3.589,8-8s-3.589-8-8-8 s-8,3.589-8,8S7.589,20,12,20z M12,14c-1.104,0-2-0.896-2-2s0.896-2,2-2s2,0.896,2,2S13.104,14,12,14z M8.586,16.414 l-1.414-1.414C8.421,13.75,9.25,12.5,10.5,12c0.414,1.104,1.5,2,2.5,2c0.5,0,1.25-0.829,2.5,0.414l1.414-1.414 c-2.008-2.008-5.323-2.695-7.914-1.636C7.579,12.25,6.75,13.5,5.5,14c-0.414-1.104-1.5-2-2.5-2c-0.5,0-1.25,0.829-2.5-0.414 l-1.414,1.414C1.172,11.586,4.487,10.899,7.078,9.84C8.421,9.25,9.25,8.001,10.5,7.5c0.414,1.104,1.5,2,2.5,2 c0.5,0,1.25-0.829,2.5,0.414l1.414-1.414C18.922,6.492,22.237,5.805,24.828,6.864c-1.343-0.586-2.172-1.835-3.422-2.336 c-0.414-1.104-1.5-2-2.5-2c-0.5,0-1.25,0.829-2.5-0.414L15.002,3.528C12.994,1.52,9.679,0.833,7.088,1.892 C8.431,1.306,9.26,0.057,10.5-0.443C10.914,0.661,12,1.557,13,1.557c0.5,0,1.25-0.829,2.5,0.414l1.414-1.414 C18.922,0.557,22.237-0.13,24.828,0.929" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+                </div>
+                <h2>Microscopic Observation</h2>
+                <p>Scientific methods allowed us to observe the invisible world. Researchers mapped DNA and defined the rules of quantum mechanics. We decoded the basic structures of life and the physical universe.</p>
+            </div>
+        </section>
+
+        <!-- Era 4: Information Age -->
+        <section class="era-section" data-era="4">
+            <div class="era-content-box era-4">
+                <div class="era-icon-container" style="color: #4ade80; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8));">
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm8 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 2c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z" fill="currentColor"/></svg>
+                </div>
+                <h2>Data Processing</h2>
+                <p>The invention of the transistor shifted our focus to computation. Global networks now connect billions of devices. Modern society generates more information in one day than previous generations did in centuries.</p>
+            </div>
+        </section>
+
+        <!-- Era 5: The Ultimate Message (Archiving) -->
+        <section class="era-section" data-era="5">
+            <div class="era-content-box era-5">
+                <div class="era-icon-container" style="color: #facc15; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8));">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8v13H3V8M1 3h22v5H1zM10 12h4"/></svg>
+                </div>
+                <h2>Structural Vulnerability</h2>
+                <p style="color: #ffffff; font-weight: 500;">However, digital storage is highly unstable. Hardware degrades over time, and file formats quickly become outdated.</p>
+                <p>Every major discovery from stone tools to genetic mapping faces the risk of permanent loss. Systematic digitization and aggressive archiving are not optional tasks.</p>
+                <h3 style="font-size: clamp(1.05rem, 2.5vw, 1.25rem); font-weight: 700; margin-top: 1rem; color: #eab308; text-transform: uppercase; letter-spacing: 0.05em; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);">They are necessary defenses against the erasure of human knowledge.</h3>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Controls -->
+    <div id="archive-controls">
+        <button id="archive-prev-btn" class="archive-nav-btn" disabled>Previous Phase</button>
+        <button id="archive-next-btn" class="archive-nav-btn">Next Phase</button>
     </div>
   </div>
 </section>
@@ -941,7 +1064,7 @@ footer { background: var(--navy-2); border-top: 1px solid var(--border-dim); pad
         
         <p>Dr. Narayanan previously worked as a Research Associate at the National Centre for Catalysis Research, IIT Madras, where he collaborated with Prof. B. Viswanathan on research related to industrial decarbonisation, including the development of CO<sub>2</sub>-to-sustainable aviation fuel pathways using reverse water–gas shift and Fischer–Tropsch synthesis.</p>
         
-        <p>He completed his PhD in Environmental Studies from Cochin University of Science and Technology, conducting doctoral research at the National Centre for Catalysis Research, IIT Madras under the guidance of Prof. B. Viswanathan. His doctoral work focused on the activation of carbon dioxide and its reduction to value-added chemicals and fuels on graphitic carbon nitride surfaces. He holds a Master’s degree in Environmental Technology with a specialization in Environmental Engineering, and a Bachelor’s degree in Chemistry.</p>
+        <p>He completed his PhD in Environmental Studies from Cochin University of Science and Technology, conducting doctoral research at the National Centre for Catalysis Research, IIT Madras under the guidance of Prof. B. Viswanathan. His doctoral work focused on the activation of carbon dioxide and its reduction to value-added chemicals and fuels on graphitic carbon nitride surfaces.</p>
       </div>
     </div>
 
@@ -1143,6 +1266,7 @@ document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(e
 /* Hero canvas */
 (function() {
   const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
   let W, H, particles;
   const COLORS = ['#C8972A', '#2BCFC3', '#8B6519', '#1A8A81'];
@@ -1163,6 +1287,271 @@ document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(e
   }
   window.addEventListener('resize', resize);
   init(); tick();
+})();
+
+/* --- Archive Animation Engine --- */
+(function() {
+    let currentEra = 0;
+    const totalEras = 6;
+    let targetProgress = 0;
+    let currentProgress = 0;
+
+    const wrapper = document.getElementById('archive-wrapper');
+    if (!wrapper) return;
+    const canvas = document.getElementById('archive-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    const sections = wrapper.querySelectorAll('.era-section');
+    const dots = wrapper.querySelectorAll('.archive-dot');
+    const prevBtn = document.getElementById('archive-prev-btn');
+    const nextBtn = document.getElementById('archive-next-btn');
+
+    function updateUI() {
+        sections.forEach((sec, index) => {
+            if (index === currentEra) {
+                sec.classList.add('active');
+            } else {
+                sec.classList.remove('active');
+            }
+        });
+        dots.forEach((dot, index) => {
+            if (index === currentEra) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+        prevBtn.disabled = currentEra === 0;
+        nextBtn.disabled = currentEra === totalEras - 1;
+        targetProgress = currentEra / (totalEras - 1);
+    }
+
+    // Expose global click handlers for buttons and dots
+    window.setArchiveEra = function(eraIndex) {
+        currentEra = eraIndex;
+        updateUI();
+    };
+
+    nextBtn.addEventListener('click', () => {
+        if (currentEra < totalEras - 1) {
+            currentEra++;
+            updateUI();
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentEra > 0) {
+            currentEra--;
+            updateUI();
+        }
+    });
+
+    const discoveriesList = [
+        "Schrödinger Equation", "Newton's Laws of Motion", "Haber-Bosch Process", 
+        "DNA Double Helix", "Theory of Relativity", "Penicillin Discovery", 
+        "Calculus", "CRISPR-Cas9", "Quantum Mechanics", "Laws of Thermodynamics", 
+        "Information Theory", "Euler's Identity", "Germ Theory of Disease", 
+        "The Standard Model", "Plate Tectonics", "Heliocentric Model", 
+        "Maxwell's Equations", "Boolean Algebra", "Turing Machine", "Vaccination",
+        "Mendelian Inheritance", "Periodic Table", "Radioactivity", "Big Bang Theory",
+        "Special Relativity", "E=mc²", "Fermat's Last Theorem", "Game Theory",
+        "Keynesian Economics", "Photosynthesis", "Stem Cell Isolation", "General Relativity",
+        "Navier-Stokes Equations", "Theory of Evolution", "Black Hole Thermodynamics"
+    ];
+
+    let width, height;
+    let particles = [];
+    let floatingTexts = [];
+    const particleCount = 150;
+    const textCount = 20;
+
+    function resizeArchive() {
+        width = canvas.width = wrapper.clientWidth;
+        height = canvas.height = wrapper.clientHeight;
+    }
+    window.addEventListener('resize', resizeArchive);
+    resizeArchive();
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.size = Math.random() * 2 + 1;
+            this.vx = (Math.random() - 0.5) * 2;
+            this.vy = (Math.random() - 0.5) * 2;
+            this.angle = Math.random() * Math.PI * 2;
+            this.speed = Math.random() * 0.02 + 0.01;
+        }
+        update(progress) {
+            if (progress < 0.2) {
+                this.y -= Math.abs(this.vy) * 2 + 1; 
+                this.x += Math.sin(this.angle) * 2;
+                this.angle += 0.1;
+                if (this.y < 0) this.y = height + 10;
+            }
+            else if (progress < 0.4) {
+                this.x += this.vx * 0.5;
+                this.y += this.vy * 0.5;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            else if (progress < 0.6) {
+                this.angle += this.speed;
+                this.x += Math.cos(this.angle) * 2;
+                this.y += Math.sin(this.angle) * 2;
+                this.y -= 0.5;
+                if (this.y < 0) this.y = height;
+            }
+            else if (progress < 0.8) {
+                this.y += Math.abs(this.vy) * 4 + 2; 
+                if (this.y > height) {
+                    this.y = -10;
+                    this.x = Math.random() * width;
+                }
+            }
+            else {
+                const centerX = width / 2;
+                const centerY = height / 2;
+                const dx = centerX - this.x;
+                const dy = centerY - this.y;
+                
+                this.x += dx * 0.015;
+                this.y += dy * 0.015;
+                
+                this.angle += this.speed;
+                this.x += Math.cos(this.angle) * 1.5;
+                this.y += Math.sin(this.angle) * 1.5;
+
+                if (Math.abs(dx) < 20 && Math.abs(dy) < 20) {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() > 0.5 ? -10 : height + 10;
+                }
+            }
+        }
+        draw(ctx, progress) {
+            let r, g, b, a;
+            if (progress < 0.2) {
+                r = 255; g = Math.random() * 150 + 50; b = 0; a = 0.6;
+            } else if (progress < 0.4) {
+                r = 200; g = 180; b = 150; a = 0.4;
+            } else if (progress < 0.6) {
+                r = 50; g = 150; b = 255; a = 0.6;
+            } else if (progress < 0.8) {
+                r = 0; g = 255; b = 100; a = 0.8;
+            } else {
+                r = 255; g = 215; b = 100; a = 0.9;
+            }
+
+            ctx.beginPath();
+            if (progress >= 0.6 && progress < 0.8) {
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a})`;
+                ctx.fillRect(this.x, this.y, 2, 10);
+            } else {
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a})`;
+                ctx.fill();
+            }
+        }
+    }
+
+    class FloatingText {
+        constructor() {
+            this.reset();
+            this.y = Math.random() * height; 
+        }
+        reset() {
+            this.text = discoveriesList[Math.floor(Math.random() * discoveriesList.length)];
+            this.x = Math.random() * width;
+            this.y = height + 50;
+            this.speed = Math.random() * 0.3 + 0.1;
+            this.fontSize = Math.floor(Math.random() * 14) + 12; 
+            this.opacityOffset = Math.random() * Math.PI * 2;
+        }
+        update() {
+            this.y -= this.speed;
+            if (this.y < -50) {
+                this.reset();
+            }
+        }
+        draw(ctx, progress) {
+            let r, g, b;
+            if (progress < 0.2) {
+                r = 255; g = 100; b = 50;
+            } else if (progress < 0.4) {
+                r = 200; g = 180; b = 150;
+            } else if (progress < 0.6) {
+                r = 100; g = 200; b = 255;
+            } else if (progress < 0.8) {
+                r = 50; g = 255; b = 100;
+            } else {
+                r = 255; g = 215; b = 100;
+            }
+            const pulse = (Math.sin(Date.now() * 0.001 + this.opacityOffset) + 1) / 2; 
+            const finalOpacity = 0.02 + (pulse * 0.10);
+
+            ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${finalOpacity})`;
+            ctx.font = `bold ${this.fontSize}px var(--font-display)`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(this.text, this.x, this.y);
+        }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
+    for (let i = 0; i < textCount; i++) {
+        floatingTexts.push(new FloatingText());
+    }
+
+    function animateArchive() {
+        currentProgress += (targetProgress - currentProgress) * 0.03;
+
+        ctx.fillStyle = 'rgba(5, 5, 5, 0.2)';
+        ctx.fillRect(0, 0, width, height);
+
+        floatingTexts.forEach(t => {
+            t.update();
+            t.draw(ctx, currentProgress);
+        });
+
+        if (currentProgress >= 0.15 && currentProgress < 0.45) {
+            const lineAlpha = 0.15 * (1 - Math.abs(currentProgress - 0.3) * 3);
+            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(200, 180, 150, ${Math.max(0, lineAlpha)})`;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        if (currentProgress >= 0.7) {
+            const glowIntensity = Math.min(1, (currentProgress - 0.7) * 3.33); 
+            const gradient = ctx.createRadialGradient(width/2, height/2, 10, width/2, height/2, 300);
+            gradient.addColorStop(0, `rgba(255, 215, 100, ${0.15 * glowIntensity})`);
+            gradient.addColorStop(1, 'rgba(5, 5, 5, 0)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+        }
+
+        particles.forEach(p => {
+            p.update(currentProgress);
+            p.draw(ctx, currentProgress);
+        });
+
+        requestAnimationFrame(animateArchive);
+    }
+
+    animateArchive();
 })();
 
 /* Anti-scraping helper + Phone/email reveal */
