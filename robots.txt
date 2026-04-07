@@ -1,8 +1,10 @@
 User-agent: *
 Allow: /
 
-# Block access to any config or metadata files if present
+# Block access to utility and config files
 Disallow: /.git/
 Disallow: /_headers
+Disallow: /og-image-generator.html
+Disallow: /animation.html
 
 Sitemap: https://hariprasad-narayanan.github.io/sitemap.xml
