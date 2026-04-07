@@ -194,7 +194,8 @@
 ">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,300;1,8..60,400;1,8..60,600&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,300;1,8..60,400;1,8..60,600&family=Source+Code+Pro:wght@300;400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,300;1,8..60,400;1,8..60,600&family=Source+Code+Pro:wght@300;400;500&display=swap"></noscript>
 <style>
 @font-face { font-family: 'TeX Gyre Heros'; src: local('TeX Gyre Heros'), local('TeXGyreHeros'), local('texgyreheros-regular'); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: 'TeX Gyre Heros'; src: local('TeX Gyre Heros Italic'), local('TeXGyreHeros-Italic'), local('texgyreheros-italic'); font-weight: 400; font-style: italic; font-display: swap; }
@@ -876,6 +877,7 @@ footer { background: #EDE2D0; border-top: 1px solid var(--border-dim); padding: 
                      class="photo-clickable"
                      onclick="openLightbox(this.src, this.alt)"
                      title="Click to enlarge"
+                     loading="lazy"
                      style="width:100%;display:block;object-fit:cover">
               </div>
               <div style="flex:1;min-width:0">
@@ -1103,6 +1105,7 @@ footer { background: #EDE2D0; border-top: 1px solid var(--border-dim); padding: 
                src="assets/images/hariprasad.jpeg"
                alt="Dr. Hariprasad Narayanan"
                class="photo-clickable"
+               loading="lazy"
                style="position:absolute; inset:6px; width:calc(100% - 12px); height:calc(100% - 12px); object-fit:cover; object-position:center top; z-index:2; border-radius:6px; cursor:zoom-in;"
                onclick="openLightbox(this.src, this.alt)"
                title="Click to enlarge">
@@ -1134,6 +1137,7 @@ footer { background: #EDE2D0; border-top: 1px solid var(--border-dim); padding: 
           <img src="assets/images/prof_b_viswanathan.png"
                alt="Prof. B. Viswanathan"
                class="photo-clickable"
+               loading="lazy"
                style="position:absolute; inset:6px; width:calc(100% - 12px); height:calc(100% - 12px); object-fit:cover; object-position:center top; z-index:2; border-radius:6px; cursor:zoom-in;"
                onclick="openLightbox(this.src, this.alt)"
                title="Click to enlarge">
@@ -1328,10 +1332,10 @@ document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(e
   const COLORS = ['#C8972A', '#2BCFC3', '#8B6519', '#1A8A81'];
   function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
   function mkParticle() { return { x: Math.random()*W, y: Math.random()*H, r: Math.random()*2.5+1, vx: (Math.random()-.5)*.35, vy: (Math.random()-.5)*.35, color: COLORS[Math.floor(Math.random()*COLORS.length)], opacity: Math.random()*.5+.1 }; }
-  function init() { resize(); particles = Array.from({length:90}, mkParticle); }
+  function init() { resize(); particles = Array.from({length:55}, mkParticle); }
   function tick() {
     ctx.clearRect(0,0,W,H);
-    for (let i=0;i<particles.length;i++) { for (let j=i+1;j<particles.length;j++) { const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y, dist=Math.sqrt(dx*dx+dy*dy); if (dist<150) { ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y); ctx.strokeStyle=`rgba(200,151,42,${(1-dist/150)*0.15})`; ctx.lineWidth=.6; ctx.stroke(); } } }
+    for (let i=0;i<particles.length;i++) { for (let j=i+1;j<particles.length;j++) { const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y, dist=Math.sqrt(dx*dx+dy*dy); if (dist<120) { ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y); ctx.strokeStyle=`rgba(200,151,42,${(1-dist/120)*0.15})`; ctx.lineWidth=.6; ctx.stroke(); } } }
     particles.forEach(p => {
       ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle=p.color+Math.floor(p.opacity*255).toString(16).padStart(2,'0'); ctx.fill();
       if (p.r>2.8) { ctx.beginPath(); for (let i=0;i<6;i++) { const a=(Math.PI/3)*i-Math.PI/6, px=p.x+12*Math.cos(a), py=p.y+12*Math.sin(a); i===0?ctx.moveTo(px,py):ctx.lineTo(px,py); } ctx.closePath(); ctx.strokeStyle=p.color+'22'; ctx.lineWidth=.6; ctx.stroke(); }
@@ -1418,8 +1422,8 @@ document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(e
     let width, height;
     let particles = [];
     let floatingTexts = [];
-    const particleCount = 150;
-    const textCount = 20;
+    const particleCount = 80;
+    const textCount = 10;
 
     function resizeArchive() {
         width = canvas.width = wrapper.clientWidth;
